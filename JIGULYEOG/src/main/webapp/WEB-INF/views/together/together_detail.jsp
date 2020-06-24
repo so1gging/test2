@@ -1,0 +1,241 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<!DOCTYPE html>
+<html lang="en">
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+
+
+  <head>
+    <title>Givig - Non-profit Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500|Gaegu:700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/magnific-popup.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/aos.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/ionicons.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.timepicker.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/flaticon.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/icomoon.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/personal_css/togather.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/earlyaccess/jejugothic.css">
+    <link rel="icon" href="${pageContext.request.contextPath}/resources/images/ficon.png">
+    <style>
+      body{
+        font-family: 'Poppins','Jeju Gothic', serif;
+      }
+    </style>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript">
+	
+	
+	</script>
+  </head>
+  <body>
+	
+<%
+/*
+	try {
+	String driver="oracle.jdbc.driver.OracleDriver";  
+	Class.forName(driver);  //클래스명을 집어넣어주면 자동으로 객체를 만들어주는 함수.
+	String url="jdbc:oracle:thin:@localhost:1521:xe";  
+	String userName="JIGULYEOG";  
+	String passWord="JIGULYEOG"; 
+	Connection con = DriverManager.getConnection(url , userName , passWord);
+	Statement st = con.createStatement();
+	//DB에 데이터 넣기
+	String sql="insert into general (gname,gage,gmoney) values ( '이순신' , 36 , 650 )";
+	st.executeUpdate(sql);
+	String sql2="select * from general"; //명령문 추가할 때 마다 변수명을 달리해줘야한다! 
+	ResultSet rs = st.executeQuery(sql2);
+	while(rs.next()){
+	    String s = rs.getString("gname");
+	    long n1 = rs.getLong("gage");
+	    long n2 = rs.getLong("gmoney");
+	    out.write(s+" "+n1+" "+n2+"<br/>");  //데이터를 요청하는 클라이언트에게 보내준다.
+	}
+	con.close();
+	st.close();
+	
+	} catch (Exception e) {
+	          System.out.println(e);
+	}
+*/
+%>
+
+	
+	
+	
+	
+	
+    
+     <!----------------- START nav ----------------->  
+ <%@ include file="../header.jsp" %>
+  <!----------------- END nav ----------------->
+  
+  <div class="block-31" style="position: relative;">
+    <div class="owl-carousel loop-block-31 ">
+      <div class="block-30 block-30-sm item" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+        <div class="container">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-md-7 text-center">
+              <h2 class="heading">함께해요</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+  <div id="blog" class="site-section">
+
+    <div class="container">
+            
+            <div class="row">
+
+              <div class="col-md-10">
+                <!-- <div class="text">[카테고리] 제목</div> -->
+                <h3 style="margin-bottom: 40px;">${dto.tog_title} </h3>
+                <p class="mb-5"><img src="${pageContext.request.contextPath}/resources/upload/images/together/${dto.tog_image}" alt="" class="img-fluid"></p>
+                                               
+                  <!-- 작성폼 -->
+                  
+                  <div class="comment-form-wrap">
+                    <form class="p-5 bg-light" >
+                      <div class="form-group">
+                        <label for=text>카테고리 : ${dto.tog_category } </label>
+                      </div>
+                      <div class="form-group">
+                     	  마감기한 : <fmt:formatDate value="${dto.tog_dead}" pattern="yyyy/MM/dd"/> 까지
+                      </div>
+                      <div class="form-group">
+                        <label for="text">작성자 : ${dto.user_id }</label>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="text">내용</label>
+                        <br>
+                        ${dto.tog_content }
+                      </div>
+                      <div>
+                      </div>
+                      <c:if test="${!empty user }">
+                      	
+                      	
+                      <div class="form-group">
+                      	
+                      	<c:if test="${dto.user_id ne user.user_id }">
+                      	<c:if test="${empty res }">
+                      	<button id="tog_no" name="tog_no" type="submit" value="${dto.tog_no}" class="btn py-3 px-5  btn-primary" 
+                        onclick="location.href='together_apply.do?tog_no=${dto.tog_no}&user_id=${user.user_id }'">신청하기</button>
+                      	</c:if>
+                        
+                        <c:if test="${!empty res }">
+                        <button id="tog_no" name="tog_no" type="submit" value="${dto.tog_no}" class="btn py-3 px-5  btn-primary" 
+                        onclick="location.href='together_applyCancel.do?tog_no=${dto.tog_no}&user_id=${user.user_id }'">신청취소</button>
+                     	</c:if>
+                     	</c:if>
+                      </div>
+                      	
+                      	
+                      <div class="form-group">
+                      	<c:if test="${dto.user_id eq user.user_id }">
+						<input type="button" value="수정" class="btn py-3 px-5  btn-primary" onclick="location.href='together_updateform.do?tog_no=${dto.tog_no}'">
+						<input type="button" value="삭제" class="btn py-3 px-5  btn-primary" onclick="location.href='together_delete.do?tog_no=${dto.tog_no}'">
+						</c:if>
+						<input type="button" value="목록" class="btn py-3 px-5  btn-primary" onclick="location.href='together.do'">
+                      </div>
+             
+                      </c:if>
+                       <c:if test="${empty user }">
+                      	<input type="button" value="목록" class="btn py-3 px-5  btn-primary" onclick="location.href='together.do'">
+                   		</c:if>
+                    </form>
+                     
+                  </div>
+                
+              </div> <!-- .col-md-8 -->
+
+            </div>
+
+            
+          </div>
+
+          <div class="container">
+            
+            <div class="row">
+
+              <div class="col-md-10">
+                
+                  <!-- 작성폼 -->
+                  
+                  <div class="comment-form-wrap pt-5">
+                    <form action="#" class="p-5 bg-light">
+                      <div class="form-group" style="width: 20%; float: left; margin: 35px 40px 0px 0px;">
+                        <div class="vcard bio person-donate" style="text-align: center;">
+                          <img src="${pageContext.request.contextPath}/resources/images/person_1.jpg" alt="Image placeholder" class="img-fluid">
+                        </div>
+                        <c:if test="${!empty user }">
+                      	<c:if test="${user.user_status ne 0 }">
+                        <input type="submit" value="DM하기" class="btn py-3 px-5  btn-primary" >
+                        </c:if></c:if>
+                        <a>작성자 한마디</a>
+                      </div>
+                     
+                      <div class="form-group" style="width: 75%; display: inline-block;">
+                        <textarea name="" id="message" cols="30" rows="10" class="form-control">${dto.tog_ps}</textarea>
+                      </div>
+                    </form>
+                  </div>
+                
+              </div> <!-- .col-md-8 -->
+
+            </div>
+
+            
+          </div>
+          
+  </div>
+  
+  <!-- START footer -->
+ <%@ include file="../footer.jsp" %>
+  <!-- END footer -->
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+  <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/popper.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/jquery.waypoints.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/jquery.stellar.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/jquery.magnific-popup.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/bootstrap-datepicker.js"></script>
+  
+  <script src="${pageContext.request.contextPath}/resources/js/aos.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/jquery.animateNumber.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/google-map.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+    
+  </body>
+</html>
