@@ -20,6 +20,7 @@ import com.mvc.jigulyeog.model.dao.TogetherDao;
 import com.mvc.jigulyeog.model.dto.PageMaker;
 import com.mvc.jigulyeog.model.dto.Paging;
 import com.mvc.jigulyeog.model.dto.TogetherDto;
+import com.mvc.jigulyeog.model.dto.UserDto;
 
 @Service
 public class TogetherBizImpl implements TogetherBiz{
@@ -247,6 +248,12 @@ public class TogetherBizImpl implements TogetherBiz{
 		paging.setEndRow();
 		
 		return paging;
+	}
+
+	@Override
+	public UserDto selectWriteUser(String user_id) {
+		
+		return dao.selectWriteUser(user_id);
 	}
 
 }

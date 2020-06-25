@@ -189,24 +189,24 @@
         <!--공유 하기 기능-->
         <h6>공유하기</h6>
         <a href="https://twitter.com/share">
-          <i class="fa fa-twitter"></i> <img src="${pageContext.request.contextPath}/resources/upload/images/chungwon/twitter.png" width="30px"></a>
+          <i class="fa fa-twitter"></i> <img src="${pageContext.request.contextPath}/resources/images/personal_img/twitter.png" width="30px"></a>
         &nbsp;
         <a href="https://facebook.com/sharer.php">
-          <i class="fa fa-facebook"></i> <img src="${pageContext.request.contextPath}/resources/upload/images/chungwon/facebook.png" width="30px"></a>
+          <i class="fa fa-facebook"></i> <img src="${pageContext.request.contextPath}/resources/images/personal_img/facebook.png" width="30px"></a>
         &nbsp;
         <!-- 카카오 스토리 공유 버튼 --> 
         <a href="" onclick="window.open(url_combine_ks, 'http://naver.com', 'scrollbars=no, width=600, height=600'); return false;">
-        <img src="${pageContext.request.contextPath}/resources/upload/images/chungwon/kakaostory.png" class="sharebtn_custom" style="width: 32px;">
+        <img src="${pageContext.request.contextPath}/resources/images/personal_img/kakaostory.png" class="sharebtn_custom" style="width: 32px;">
         </a>&nbsp;
         
         <!-- 네이버 공유 버튼 -->
         <a href="" onclick="window.open(url_combine_naver, 'http://naver.com', 'scrollbars=no, width=600, height=600'); return false;">
-        <img src="${pageContext.request.contextPath}/resources/upload/images/chungwon/naver.png" class="sharebtn_custom" style="width: 32px;">
+        <img src="${pageContext.request.contextPath}/resources/images/personal_img/naver.png" class="sharebtn_custom" style="width: 32px;">
         </a>&nbsp;
         
         <!-- 밴드 공유 버튼 --> 
         <a href="" onclick="window.open(url_combine_band, '', 'scrollbars=no, width=584, height=635'); return false;">
-        <img src="${pageContext.request.contextPath}/resources/upload/images/chungwon/band.png" class="sharebtn_custom" style="width: 32px;">
+        <img src="${pageContext.request.contextPath}/resources/images/personal_img/band.png" class="sharebtn_custom" style="width: 32px;">
         </a>
 
       </div><br>
@@ -232,8 +232,8 @@
           </div> 
         </div>
         <input type="hidden" value="${dto.pet_no}" name="pet_no" id="pet_no">
-        <div class="form-control px-3 py-3" style="width:900px;">
-          <textarea rows="3" cols="80" placeholder="댓글을 입력하세요" name="sig_content" id="sig_content"></textarea>
+        <div class="form-control px-3 py-3" style="width:800px;">
+          <textarea rows="3" cols="90" placeholder="댓글을 입력하세요" name="sig_content" id="sig_content"></textarea>
           <input type="button" value="동의" class="btn btn-primary py-3 px-5" onclick="insertcomment();">
         </div><br>
           </form>

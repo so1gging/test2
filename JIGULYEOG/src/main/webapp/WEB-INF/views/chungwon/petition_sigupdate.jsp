@@ -36,6 +36,28 @@
 		self.close();
 	}
 </script>
+<style type="text/css">
+div.button{
+ margin: auto;
+
+   width: 50%;
+
+}
+
+ 
+
+div.button input{
+
+   padding: 5px;
+
+   width: 100%;
+
+   font-size: 18px;
+
+}
+</style>
+
+ 
   </head>
 <body>
     <div class="font">
@@ -53,11 +75,14 @@
   <div class="form-control px-3 py-3">
   	유저 : ${sig.user_id }<br>
   </div>
+  <div class="container">
+ 	 내용	
+  </div>
   <div class="form-control px-3 py-3">
- 	내용 :
+ 	
 	 <textarea rows="5" cols="20" name="sig_content">${sig.sig_content }</textarea>
 	</div><br>
-	<div style="display:inline-block;">
+	<div class="col text-center">
 	<input type="submit" value="수정 완료">
 	<input type="button" value="수정 취소" onclick="button();">
 	</div>

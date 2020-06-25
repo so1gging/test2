@@ -438,9 +438,9 @@
                     </div>
 
                     <div class="person-donate text-center bg-light pt-4">
-                        <img src="${pageContext.request.contextPath}/resources/images/person_3.jpg" alt="Image placeholder" class="img-fluid">
+                        <img src="${pageContext.request.contextPath}/resources/upload/images/user/${org.org_pic}" alt="Image placeholder" class="img-fluid">
                         <div class="donate-info">
-                          <h2>${org.org_name }</h2>
+                          <h2><a href="orgDetail.do?org_num=${org.org_num }">${org.org_name }</a></h2>
                           <span class="time d-block mb-3">${org.org_role }</span>
                           
                           <c:if test="${(user.user_id ne project.user_id) && dday >= 0 }">

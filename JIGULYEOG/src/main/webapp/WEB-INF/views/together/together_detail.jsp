@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/flaticon.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/icomoon.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/personal_css/togather.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/personal_css/togather.css">
     <link rel="stylesheet" href="http://fonts.googleapis.com/earlyaccess/jejugothic.css">
     <link rel="icon" href="${pageContext.request.contextPath}/resources/images/ficon.png">
     <style>
@@ -88,7 +88,7 @@
   
   <div class="block-31" style="position: relative;">
     <div class="owl-carousel loop-block-31 ">
-      <div class="block-30 block-30-sm item" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+      <div class="block-30 block-30-sm item" style="background-image: url('${pageContext.request.contextPath}/resources/images/bg_3.jpg');" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center justify-content-center">
             <div class="col-md-7 text-center">
@@ -106,111 +106,100 @@
 
     <div class="container">
             
-            <div class="row">
-
-              <div class="col-md-10">
-                <!-- <div class="text">[카테고리] 제목</div> -->
+            <!------------------------------------------ 솔지 수정 부분----------------------------->
+            <!-- 
+            		수정사항 
+            		1. 디테일 폼 테이블 형식으로 출력
+            		2. 중앙정렬
+            		3. 신청하기 및 취소하기 버튼 위치 변경
+            		4. 유저 이미지 연동 (user_pic 연동)
+            		5. dm하기 연동
+             -->
+            <div style="text-align: center;">
                 <h3 style="margin-bottom: 40px;">${dto.tog_title} </h3>
-                <p class="mb-5"><img src="${pageContext.request.contextPath}/resources/upload/images/together/${dto.tog_image}" alt="" class="img-fluid"></p>
-                                               
-                  <!-- 작성폼 -->
-                  
+                <p class="mb-2"><img src="${pageContext.request.contextPath}/resources/upload/images/together/${dto.tog_image}" alt="" style="width:300px;" class="img-fluid"></p>                                       
+                    <div class="mb-3">      
+                           <c:if test="${dto.user_id ne user.user_id }">
+								<c:if test="${empty res }">
+	                                 <input type="button" value="신청하기"   class="btn btn-success" style="width: 300px;"
+	                                    onclick="location.href='together_apply.do?tog_no=${dto.tog_no}&user_id=${user.user_id }'">
+	                              </c:if>
+	                              <c:if test="${!empty res }">
+	                                 <input type="button" value="신청취소"   class="btn btn-danger" style="width: 300px; color:white;"
+	                                    onclick="location.href='together_applyCancel.do?tog_no=${dto.tog_no}&user_id=${user.user_id }'">
+	                              </c:if>
+	                     	</c:if>	
+      				</div>
+                 
                   <div class="comment-form-wrap">
-                    <form class="p-5 bg-light" >
-                      <div class="form-group">
-                        <label for=text>카테고리 : ${dto.tog_category } </label>
-                      </div>
-                      <div class="form-group">
-                     	  마감기한 : <fmt:formatDate value="${dto.tog_dead}" pattern="yyyy/MM/dd"/> 까지
-                      </div>
-                      <div class="form-group">
-                        <label for="text">작성자 : ${dto.user_id }</label>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="text">내용</label>
-                        <br>
-                        ${dto.tog_content }
-                      </div>
-                      <div>
-                      </div>
-                      <c:if test="${!empty user }">
-                      	
-                      	
-                      <div class="form-group">
-                      	
-                      	<c:if test="${dto.user_id ne user.user_id }">
-                      	<c:if test="${empty res }">
-                      	<button id="tog_no" name="tog_no" type="submit" value="${dto.tog_no}" class="btn py-3 px-5  btn-primary" 
-                        onclick="location.href='together_apply.do?tog_no=${dto.tog_no}&user_id=${user.user_id }'">신청하기</button>
-                      	</c:if>
-                        
-                        <c:if test="${!empty res }">
-                        <button id="tog_no" name="tog_no" type="submit" value="${dto.tog_no}" class="btn py-3 px-5  btn-primary" 
-                        onclick="location.href='together_applyCancel.do?tog_no=${dto.tog_no}&user_id=${user.user_id }'">신청취소</button>
-                     	</c:if>
-                     	</c:if>
-                      </div>
-                      	
-                      	
-                      <div class="form-group">
-                      	<c:if test="${dto.user_id eq user.user_id }">
-						<input type="button" value="수정" class="btn py-3 px-5  btn-primary" onclick="location.href='together_updateform.do?tog_no=${dto.tog_no}'">
-						<input type="button" value="삭제" class="btn py-3 px-5  btn-primary" onclick="location.href='together_delete.do?tog_no=${dto.tog_no}'">
-						</c:if>
-						<input type="button" value="목록" class="btn py-3 px-5  btn-primary" onclick="location.href='together.do'">
-                      </div>
-             
-                      </c:if>
-                       <c:if test="${empty user }">
-                      	<input type="button" value="목록" class="btn py-3 px-5  btn-primary" onclick="location.href='together.do'">
-                   		</c:if>
-                    </form>
-                     
+                    <form class="p-5 bg-light">
+	                    <table class="table" style="width:700px; margin:0px auto; text-align: left;">
+	             
+	                    	<tr>
+	                    		<th style="width:150px;">카테고리</th>
+	                    		<td><b>${dto.tog_category }</b></td>
+	                    	</tr>
+	                     	<tr>
+	                    		<th>마감기한 :</th>
+	                    		<td><b><fmt:formatDate value="${dto.tog_dead}" pattern='yyyy/MM/dd'/></b></td>
+	                    	</tr>        
+	                       	<tr>
+	                    		<th>작성자 :</th>
+	                    		<td><b>${dto.user_id }</b></td>
+	                    	</tr> 
+	                    	
+	                    	<tr>
+	                    		<th colspan="2" style="width: 50px;">내용</th>              		
+	                    	</tr>  
+	                    	<tr>
+	                    		<td style="padding: 35px;">
+			                    		${dto.tog_content }	
+	                    		</td>
+	                    	</tr>                  	           	
+	                    </table>
+                      </form>
                   </div>
+           
+                      
+	              <div class="form-group mt-2" style="text-align: right;">
+			          <c:if test="${!empty user }">	
+					              <c:if test="${dto.user_id eq user.user_id }">
+											<input type="button" value="수정" class="btn btn-primary" onclick="location.href='together_updateform.do?tog_no=${dto.tog_no}'">
+											<input type="button" value="삭제" class="btn btn-primary" onclick="location.href='together_delete.do?tog_no=${dto.tog_no}'">					
+								</c:if>
+				       </c:if>
+	                		<input type="button" value="목록" class="btn btn-primary" onclick="location.href='together.do'">		
+		           </div>
+               </div>
                 
-              </div> <!-- .col-md-8 -->
-
-            </div>
-
-            
-          </div>
-
-          <div class="container">
-            
-            <div class="row">
-
-              <div class="col-md-10">
-                
-                  <!-- 작성폼 -->
-                  
-                  <div class="comment-form-wrap pt-5">
+              <div class="comment-form-wrap pt-5" >
                     <form action="#" class="p-5 bg-light">
-                      <div class="form-group" style="width: 20%; float: left; margin: 35px 40px 0px 0px;">
-                        <div class="vcard bio person-donate" style="text-align: center;">
-                          <img src="${pageContext.request.contextPath}/resources/images/person_1.jpg" alt="Image placeholder" class="img-fluid">
-                        </div>
-                        <c:if test="${!empty user }">
-                      	<c:if test="${user.user_status ne 0 }">
-                        <input type="submit" value="DM하기" class="btn py-3 px-5  btn-primary" >
-                        </c:if></c:if>
-                        <a>작성자 한마디</a>
-                      </div>
-                     
-                      <div class="form-group" style="width: 75%; display: inline-block;">
-                        <textarea name="" id="message" cols="30" rows="10" class="form-control">${dto.tog_ps}</textarea>
+                    <div class="row">
+                    	<div class="col-md-4">
+		                      <div class="form-group" style="text-align:center;">
+		                        <div class="vcard bio person-donate" style="text-align: center;">
+		                          <img src="${pageContext.request.contextPath}/resources/upload/images/user/${writeUser.user_pic}" alt="Image placeholder" class="img-fluid">
+		                        </div>
+		                        <c:if test="${!empty user }">
+			                      	<c:if test="${user.user_id ne writeUser.user_id}">
+			                        <input type="button" onclick="location.href='dmlistadd.do?add=${writeUser.user_id}'" value="DM하기" class="btn btn-primary" >
+			                        </c:if>
+		                        </c:if>
+		                      </div>
+	                 	</div> 
+	                 	<div class="col-md-8">
+	                      <div class="form-group"  style="width: 85%; display: inline-block;">
+	                        <textarea name="" id="message" cols="30" rows="5" class="form-control">${dto.tog_ps}</textarea>
+	                      </div>	                 	             	
+	                 	</div>   
                       </div>
                     </form>
                   </div>
+                  
                 
               </div> <!-- .col-md-8 -->
-
-            </div>
-
-            
-          </div>
-          
-  </div>
+        </div>
+        
   
   <!-- START footer -->
  <%@ include file="../footer.jsp" %>

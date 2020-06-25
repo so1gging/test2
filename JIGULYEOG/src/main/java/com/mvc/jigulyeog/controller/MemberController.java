@@ -447,6 +447,27 @@ public class MemberController {
       map.put("check", is);
       return map;
    }
+
+   //phoneCheck
+   @RequestMapping("/phoneCheck.do")
+   @ResponseBody
+   public Map phoneCheck(@RequestBody Map param) {
+	   String user_phone = (String) param.get("user_phone");
+	   logger.info("user_phone:"+user_phone);
+	   int res = 0;
+	   if (mb.phoneCheck(user_phone) != 0) {
+		   res = 1;
+	   }
+	   // id 중복되면 res : 1, 없으면 0
+	   
+	   Boolean is = (res==0)?true:false;
+	   
+	   Map<String,Boolean> map = new HashMap<String, Boolean>();
+	   
+	   map.put("check", is);
+	   return map;
+   }
+
    
    private void dispatch( String url, HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
       RequestDispatcher dispatch = request.getRequestDispatcher( url );

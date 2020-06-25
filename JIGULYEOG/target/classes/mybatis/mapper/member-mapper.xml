@@ -21,7 +21,7 @@
   	</insert>
   	
   	<insert id="regist_org" parameterType="UserDto">
-  		INSERT INTO USER_TB VALUES(#{user_id}, #{user_pw}, #{user_name}, #{user_nick}, #{user_phone}, #{user_addr}, #{user_pic}, 1)
+  		INSERT INTO USER_TB VALUES(#{user_id}, #{user_pw}, #{user_name}, #{user_nick}, #{user_phone}, #{user_addr}, #{user_pic}, #{user_status})
   	</insert>
   	
   	<insert id="insertSNS" parameterType="UserDto">
@@ -52,4 +52,19 @@
   		FROM USER_TB
   		WHERE USER_NICK=#{user_nick}
   	</select>
+
+  	<select id="phoneCheck" resultType="int" parameterType="String">
+  		SELECT count(*)
+  		FROM USER_TB
+  		WHERE USER_PHONE=#{user_phone}
+  	</select>
+  	
+  	  	
+  	<!-- ## 솔지 수정 부분 : 환경단체 가입 시, 해당 이미지 org테이블에 org_pic에 추가 ## -->
+  	<update id="regist_org_img_update" parameterType="java.util.HashMap">
+  		UPDATE ORG
+  		SET ORG_PIC = #{user_pic}
+  		WHERE ORG_NUM = #{user_status}
+  	</update>
+  	<!-- ############################################################# -->
 </mapper>

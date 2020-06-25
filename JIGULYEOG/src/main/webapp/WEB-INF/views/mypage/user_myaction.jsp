@@ -93,23 +93,26 @@ body {
 										<div class="card fundraise-item">
 											<div class="card-body">
 												<h3 class="card-title">
-													<a href="#">청원 내용이 없습니다.<br>청원에 참가해볼까요?</a>
+													<a href="chunglist.do">청원 내용이 없습니다.<br>청원에 참가해볼까요?
+													</a>
 												</h3>
 											</div>
 										</div>
 									</c:when>
 									<c:otherwise>
-										<c:forEach var="signUpList" items="${signUpList}">
+										<c:forEach var="su" items="${signUpList}">
 											<div class="card fundraise-item">
-												<a href="#">청원이미지 추가해야함</a>
+												<a href="chungdetail.do?pet_no=${su.pet_no }"><img
+													class="card-img-top"
+													src="${pageContext.request.contextPath}/resources/upload/images/chungwon/${su.pet_photo}"
+													alt="Image placeholder" height="210px"></a>
 												<div class="card-body">
 													<h3 class="card-title">
-														<a href="#">${signUpList.pet_title }</a>
+														<a href="chungdetail.do?pet_no=${su.pet_no }">${su.pet_title }</a>
 													</h3>
-													<p class="card-text">${signUpList.pet_content }</p>
-													<span class="fund-raised d-block">청원종료일 : <fmt:formatDate
-															value="${signUpList.pet_dead }" pattern="yyyy.MM.dd" />
-													</span>
+													<p class="card-text">${su.pet_content }</p>
+													<span class="fund-raised d-block">청원종료일 :
+														${su.pet_dead } </span>
 												</div>
 											</div>
 										</c:forEach>
@@ -144,16 +147,16 @@ body {
 											</tr>
 										</c:when>
 										<c:otherwise>
-											<c:forEach var="CW" items="${CWList }">
+											<c:forEach var="cw" items="${CWList }">
 												<tr>
-													<td>${CW.pet_no }</td>
+													<td>${cw.pet_no }</td>
 													<td style="text-align: left;"><a style="color: black;"
-														href="#">${CW.pet_title }</a></td>
+														href="chungdetail.do?pet_no=${cw.pet_no }">${cw.pet_title }</a></td>
 													<td>
 														<form method="post" action="SUExcelDown.do">
-															<input type="hidden" name="pet_no" value="${CW.pet_no }">
+															<input type="hidden" name="pet_no" value="${cw.pet_no }">
 															<input type="hidden" name="pet_title"
-																value="${CW.pet_title }"> <input type="submit"
+																value="${cw.pet_title }"> <input type="submit"
 																value="서명자 엑셀로 추출" class="btn btn-primary">
 														</form>
 													</td>
@@ -212,26 +215,29 @@ body {
 										<div class="card fundraise-item">
 											<div class="card-body">
 												<h3 class="card-title">
-													<a href="#">함께하기 내용이 없습니다.<br>함께하기에 참가해볼까요?</a>
+													<a href="together.do">함께하기 내용이 없습니다.<br>함께하기에
+														참가해볼까요?
+													</a>
 												</h3>
 											</div>
 										</div>
 									</c:when>
 									<c:otherwise>
-										<c:forEach var="togetherApplyList"
-											items="${togetherApplyList }">
+										<c:forEach var="tga" items="${togetherApplyList }">
 											<div class="card fundraise-item">
+												<a href="together_detail.do?tog_no=${tga.tog_no }"><img
+													class="card-img-top"
+													src="${pageContext.request.contextPath}/resources/upload/images/together/${tga.tog_image}"
+													
+													alt="Image placeholder"></a>
 												<div class="card-body">
 													<h3 class="card-title">
-														<a href="#">${togetherApplyList.tog_title }</a>
+														<a href="together_detail.do?tog_no=${tga.tog_no }">${tga.tog_title }</a>
 													</h3>
-													<p class="card-text">카테고리 :
-														${togetherApplyList.tog_category }</p>
-													<p class="card-text">내용 :
-														${togetherApplyList.tog_content }</p>
+													<p class="card-text">작성자 : ${tga.user_id }</p>
 													<p class="card-text">
 														종료일 :
-														<fmt:formatDate value="${togetherApplyList.tog_dead }"
+														<fmt:formatDate value="${tga.tog_dead }"
 															pattern="yyyy.MM.dd" />
 													</p>
 												</div>
@@ -264,16 +270,16 @@ body {
 								</tr>
 							</c:when>
 							<c:otherwise>
-								<c:forEach var="TG" items="${TGList }">
+								<c:forEach var="tg" items="${TGList }">
 									<tr>
-										<td>${TG.tog_no }</td>
+										<td>${tg.tog_no }</td>
 										<td style="text-align: left;"><a style="color: black;"
-											href="#">${TG.tog_title }</a></td>
+											href="together_detail.do?tog_no=${tg.tog_no }">${tg.tog_title }</a></td>
 										<td>
 											<form method="post" action="TGAExcelDown.do">
-												<input type="hidden" name="tog_no" value="${TG.tog_no }">
+												<input type="hidden" name="tog_no" value="${tg.tog_no }">
 												<input type="hidden" name="tog_title"
-													value="${TG.tog_title }"> <input type="submit"
+													value="${tg.tog_title }"> <input type="submit"
 													value="신청자 엑셀로 추출" class="btn btn-primary">
 											</form>
 										</td>
@@ -318,9 +324,7 @@ body {
 			</div>
 		</div>
 	</div>
-
 	<!-- END section -->
-
 
 	<!----------------- START footer ----------------->
 	<%@ include file="../footer.jsp"%>

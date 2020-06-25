@@ -185,12 +185,24 @@ public class TogetherController {
 				
 				model.addAttribute("res",AppBiz.select(tog_no, user_id));
 				logger.info("check -- res "+model.containsAttribute("res"));
-				model.addAttribute("dto",biz.selectOne(tog_no));
+				
+				/***************솔지 수정 부분*****************/
+				TogetherDto together = biz.selectOne(tog_no); 
+				/*이미지 출력을 위해 user_id정보를 가져오는 로직 추가*/
+				UserDto writeUser = biz.selectWriteUser(together.getUser_id());
+				model.addAttribute("dto",together);
+				model.addAttribute("writeUser",writeUser);
+				
 			} catch (NullPointerException e) {
 				logger.info("예외확인");
 				logger.info("tog_no : "+tog_no);
 				e.printStackTrace();
-				model.addAttribute("dto",biz.selectOne(tog_no));
+				TogetherDto together = biz.selectOne(tog_no); 
+				UserDto writeUser = biz.selectWriteUser(together.getUser_id());
+				model.addAttribute("dto",together);
+				model.addAttribute("writeUser",writeUser);
+				/*******************************************/
+				
 			}
 			
 			return "/together/together_detail";

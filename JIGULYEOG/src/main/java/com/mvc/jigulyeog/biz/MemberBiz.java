@@ -19,5 +19,6 @@ public interface MemberBiz {
 	public UserDto searchPw(UserDto user);
 	public int idCheck(String user_id);
 	public int nickCheck(String user_nick);
+	public int phoneCheck(String user_phone);
 	public int insertSNS(UserDto user);
 }

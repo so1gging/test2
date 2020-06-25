@@ -68,7 +68,7 @@
       <div class="mb-3">
         <!--검색창밑 카테고리 선택-->
         <div>
-        <form action="chunglist.do" method="get">
+        <form action="chunglist.do" method="get" style="display:inline-block;">
         <input type="hidden" value="${navi.currentPage }">
           <input type="text" name="searchWord" class="form-control px-3 py-1" style="width: 300px; display: inline-block;" placeholder="관심있는 청원을 검색하세요" value="${searchWord}">
           <input type="submit" class="btn btn-success btn-hover-white" value="search"/>
@@ -94,7 +94,7 @@
       </div><br>
 
       <!--청원 프로젝트-->
-      
+      <div class="row">
       <c:choose>
       		<c:when test="${empty list }">
       			<div>
@@ -103,12 +103,13 @@
       		</c:when>
       		
       		<c:otherwise>
-      			<div class="row">
+      			
       			<c:forEach items="${list }" var="dto">
 
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0">
                         <div class="card fundraise-item mb-5">
-                            <a href="#"><img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/images/chungwon/${dto.pet_photo}"  alt="Image placeholder" height="210px"></a>
+                            <a href="#"><img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/images/chungwon/${dto.pet_photo}" 
+                             alt="Image placeholder" height="210px" onclick="location.href='chungdetail.do?pet_no=${dto.pet_no }'"></a>
                             <div class="card-body">
                               <h3 class="card-title"><a href="chungdetail.do?pet_no=${dto.pet_no }">${dto.pet_title }</a></h3>
                               <div>작성자 : ${dto.user_id }</div>
@@ -120,16 +121,16 @@
                     </div>      
 
       			</c:forEach>
-      			</div>
+      			
       		</c:otherwise>
       </c:choose>
-      
+     </div> 
       <!--작성하기-->
       <div class="container">
       		<c:if test="${null ne user.user_id}">
-              <input type="button" class="btn btn-success btn-hover-white" value="작성하기" onclick="location.href='chungwriteform.do'"/>
+              <input type="button" class="btn btn-success btn-hover-white" value="작성하기" onclick="location.href='chungwriteform.do'" style="float:right;"/>
             </c:if>
-      </div>
+      </div><br>
       <br>
       <!--페이징-->
     <div style="width: 200px; margin: 0px auto;"> 
