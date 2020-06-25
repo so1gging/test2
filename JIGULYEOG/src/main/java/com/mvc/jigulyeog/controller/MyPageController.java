@@ -251,6 +251,7 @@ public class MyPageController {
 			String user_id = user.getUser_id();
 			int res = mpb.secession(user_id);
 			if (res > 0) {
+				session.invalidate();
 				jsResponse("회원탈퇴가 완료되었습니다.", "index.do", response);
 			} else {
 				jsResponse("오류가 발생하여 회원탈퇴를 실패하였습니다.", "index.do", response);

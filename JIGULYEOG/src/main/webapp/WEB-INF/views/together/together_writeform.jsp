@@ -34,7 +34,70 @@
       }
     </style>
 	
+	 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript">
 	
+	function getFormatDate(date){
+    	var year = date.getFullYear();              //yyyy
+   	 	var month = (1 + date.getMonth());          //M
+    	month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+    	var day = date.getDate();                   //d
+    	day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+    	return  year + '-' + month + '-' + day;
+	}
+	
+	$(function(){
+		$("#submitBtn").click(function(){
+			var tog_title = $("#tog_title").val();
+			var tog_dead = $("#tog_dead").val();
+			var tog_category = $("#tog_category").val();
+			var file = $("#file").val();
+			
+			var today = new Date();
+			today = getFormatDate(today);
+			
+			
+			if(tog_title == "" || tog_title == null){
+				alert('프로젝트 제목을 입력해주세요.');
+				return false;
+			}
+			
+			if(file == "" || file == null){
+				alert('대표 이미지를 설정해주세요.');
+				return false;
+			}
+			
+			if(today == tog_dead){
+				alert('마감기한은 오늘 이후여야합니다.');
+				return false;
+			}
+			
+			if(today > tog_dead){
+				alert('마감기한은 오늘 이후여야합니다.');
+				return false;
+			}
+			
+			var ckeditor = CKEDITOR.instances['tog_content']; 
+			if (ckeditor.getData()==""){
+			 	alert('내용을 입력 하세요');
+			 	ckeditor.focus();
+			 	return false;
+			}
+			
+			/*
+			if(tog_category == null){
+				alert('카테고리를 선택해주세요.');
+				return false;
+			}*/
+			
+			
+			$("#submitForm").submit();	
+			
+		});
+		
+		
+	});
+	</script>
   </head>
   <body>
     
@@ -44,7 +107,7 @@
   
   <div class="block-31" style="position: relative;">
     <div class="owl-carousel loop-block-31 ">
-      <div class="block-30 block-30-sm item" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+      <div class="block-30 block-30-sm item" style="background-image: url('background-image: url('${pageContext.request.contextPath}/resources/images/bg_3.jpg');');" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center justify-content-center">
             <div class="col-md-7 text-center">
@@ -69,15 +132,22 @@
                   
                   <div class="comment-form-wrap pt-5">
                     <h3 >함께해요 작성하기</h3>
-                    <form action="together_write.do" class="p-5 bg-light" method="post" enctype="multipart/form-data" >
+                    <form action="together_write.do" class="p-5 bg-light" method="post" enctype="multipart/form-data" id="submitForm">
                     	<input type="hidden" value="${user.user_id }"name="user_id">
                       <div class="form-group">
                         <label >제목</label>
-                        <input type="text" class="form-control" id="tog_title" name="tog_title" >
+                        <input type="text" style="width:300px;" class="form-control" id="tog_title" name="tog_title" >
                       </div>
                       <div class="form-group">
-	                       <label >카테고리</label> 
-	                      <input type="text" class="form-control" id="tog_category" name="tog_category" style="width:100px">
+	                       <label >카테고리 &nbsp;</label> 
+	                       
+	                      <!--  <input type="text" class="form-control" id="tog_category" name="tog_category" style="width:100px">-->
+                      		<select name="tog_category" required style="width:80px; text-align: center; " >
+                      			<option value="모금">모금</option>
+				                <option value="나눔">나눔</option>
+				                <option value="봉사">봉사</option>
+							</select>
+                      		
                       </div>
 					  <div class="form-group">
 					  		<label>이미지</label>
@@ -107,8 +177,9 @@
                       </div>
 			              
                       <div class="form-group" style="float: right;">
-                        <a href="together.do"><input type="button" value="취소" class="btn py-3 px-5  btn-primary"></a>
-                        <input type="submit" value="작성" class="btn py-3 px-5  btn-primary">
+                        <a href="together.do"><input type="button"  value="취소" class="btn py-3 px-5  btn-primary"></a>
+                       <!--   <input type="button" value="작성" id="submitBtn" class="btn py-3 px-5  btn-primary">-->
+                        <button id="submitBtn" class="btn py-3 px-5  btn-primary">작성</button>
                       </div>
 
                     </form>

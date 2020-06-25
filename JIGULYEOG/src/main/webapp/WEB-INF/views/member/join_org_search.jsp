@@ -70,14 +70,16 @@ body {
 	$(function(){
 		$('.popBtn').click(function(){
 
+		    var org_num = $(this).closest("td").siblings(".org_num");
 		    var org_name = $(this).closest("td").siblings(".org_name");
 		    var org_addr = $(this).closest("td").siblings(".org_addr");
 		    var org_nick = $(this).closest("td").siblings(".org_nick");
 		    
+		     $('#user_status',opener.document).val(org_num.text());
 		     $('#user_name',opener.document).val(org_name.text());
 		     $('#user_addr',opener.document).val(org_addr.text());
 		     $('#user_nick',opener.document).val(org_nick.text());
-
+		     
 		    self.close();
 		  });
 	});
@@ -113,6 +115,7 @@ body {
 						<table class="table table-hover">
 							<thead>
 								<tr>
+									<th width="20%">단체번호</th>
 									<th>단체명</th>
 									<th>주소</th>
 									<th>대표</th>
@@ -127,6 +130,7 @@ body {
 									<c:otherwise>
 										<c:forEach var="org" items="${orgList }">
 											<tr id="org_list">
+												<td class="org_num">${org.org_num }</td>
 												<td class="org_name">${org.org_name }</td>
 												<td class="org_addr">${org.org_addr }</td>
 												<td class="org_nick">${org.org_ceo }</td>
@@ -145,7 +149,7 @@ body {
 							<ul class="pagination">
 								<c:if test="${PageMaker.prev }">
 									<li class="page-item"><a class="page-link"
-										href="org.do?orgPage=${PageMaker.startPage - 1 }"
+										href="orgSearch.do?orgPage=${PageMaker.startPage - 1 }"
 										aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 									</a></li>
 								</c:if>
@@ -154,17 +158,17 @@ body {
 									<c:choose>
 										<c:when test="${idx eq orgPage }">
 											<li class="page-item active"><a class="page-link"
-												href="org.do?orgPage=${idx }">${idx }</a></li>
+												href="orgSearch.do?orgPage=${idx }">${idx }</a></li>
 										</c:when>
 										<c:otherwise>
 											<li class="page-item"><a class="page-link"
-												href="org.do?orgPage=${idx }">${idx }</a></li>
+												href="orgSearch.do?orgPage=${idx }">${idx }</a></li>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
 								<c:if test="${PageMaker.next && PageMaker.endPage>0 }">
 									<li class="page-item"><a class="page-link"
-										href="org.do?orgPage=${PageMaker.endPage + 1 }"
+										href="orgSearch.do?orgPage=${PageMaker.endPage + 1 }"
 										aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 									</a></li>
 								</c:if>

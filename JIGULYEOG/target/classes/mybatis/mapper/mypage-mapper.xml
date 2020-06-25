@@ -93,20 +93,22 @@
 	</select>
 	
 	<delete id="secession" parameterType="String">
-		DELETE *
+		DELETE
 		FROM USER_TB
 		WHERE USER_ID=#{user_id}
 	</delete>
 	
 	<update id="update_member" parameterType="UserDto">
-		UPDATE USER_TB SET
-		USER_PW = #{user_pw},
-		USER_NAME = #{user_name},
-		USER_NICK = #{user_nick},
-		USER_PHONE = #{user_phone},
-		USER_ADDR = #{user_addr},
-		USER_PIC = #{user_pic}
-		WHERE
-		USER_ID = #{user_id}
+		UPDATE USER_TB
+		<set>
+			<if test="user_pw !=null">USER_PW = #{user_pw},</if>
+			<if test="user_name !=null">USER_NAME = #{user_name},</if>
+			<if test="user_nick !=null">USER_NICK = #{user_nick},</if>
+			<if test="user_phone !=null">USER_PHONE = #{user_phone},</if>
+			<if test="user_addr !=null">USER_ADDR = #{user_addr},</if>
+			<if test="user_pic !=null">USER_PIC = #{user_pic},</if>
+			<if test="user_status !=null">USER_STATUS = #{user_status}</if>
+		</set>
+		WHERE USER_ID = #{user_id}
 	</update>
 </mapper>

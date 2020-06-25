@@ -3,6 +3,7 @@ package com.mvc.jigulyeog.model.dao;
 import java.util.List;
 
 import com.mvc.jigulyeog.model.dto.TogetherDto;
+import com.mvc.jigulyeog.model.dto.UserDto;
 
 public interface TogetherDao {
 	String NAMESPACE = "mapper.Together.";
@@ -35,5 +36,7 @@ public interface TogetherDao {
 	
 	//입력한 키워드에 해당하는 게시물 리스트 불러오기
 	List<TogetherDto> getArticleListSearch(int startRow, int endRow, String keyword);
+
+	public UserDto selectWriteUser(String user_id);
 	
 }

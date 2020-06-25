@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mvc.jigulyeog.model.dto.TogetherDto;
+import com.mvc.jigulyeog.model.dto.UserDto;
 
 
 
@@ -227,6 +228,18 @@ public class TogetherDaoImpl implements TogetherDao{
 		}
 		
 		return totalVolunteerArticle;
+	}
+
+	@Override
+	public UserDto selectWriteUser(String user_id) {
+		UserDto writeUser = new UserDto();
+		try {
+			writeUser = sqlSession.selectOne(NAMESPACE+"selectWriteUser",user_id);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return writeUser;
 	}
 
 }

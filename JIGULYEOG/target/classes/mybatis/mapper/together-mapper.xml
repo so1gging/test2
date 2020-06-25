@@ -118,5 +118,12 @@
 		WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
+	<select id="selectWriteUser" resultType="UserDto" parameterType="String">
+		SELECT *
+		FROM USER_TB
+		WHERE USER_ID=#{user_id}	
+	
+	</select>
+	
 	
   </mapper>

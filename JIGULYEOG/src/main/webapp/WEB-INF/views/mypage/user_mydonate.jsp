@@ -94,31 +94,31 @@ body {
 										<div class="card fundraise-item">
 											<div class="card-body">
 												<h3 class="card-title">
-													<a href="#">후원한 프로젝트가 없습니다.<br>프로젝트에 후원해볼까요?</a>
+													<a href="projectlist.do">후원한 프로젝트가 없습니다.<br>프로젝트에 후원해볼까요?</a>
 												</h3>
 											</div>
 										</div>
 									</c:when>
 									<c:otherwise>
-										<c:forEach var="projectList" items="${projectList}">
+										<c:forEach var="p" items="${projectList}">
 											<c:choose>
-												<c:when test="${projectList.pro_nowmoney ==0 }">
+												<c:when test="${p.pro_nowmoney ==0 }">
 													<c:set var="percent" value="0"></c:set>
 												</c:when>
 												<c:otherwise>
 													<fmt:parseNumber var="percent" integerOnly="true"
-														value="${projectList.pro_nowmoney*100/projectList.pro_goalmoney }"></fmt:parseNumber>
+														value="${p.pro_nowmoney*100/p.pro_goalmoney }"></fmt:parseNumber>
 												</c:otherwise>
 											</c:choose>
 											<div class="card fundraise-item">
-												<a href="#"><img class="card-img-top"
-													src="${pageContext.request.contextPath}/resources/upload/images/project/${projectList.pro_image}"
+												<a href="projectdetail.do?pro_num=${p.pro_num }"><img class="card-img-top"
+													src="${pageContext.request.contextPath}/resources/upload/images/project/${p.pro_image}"
 													alt="Image placeholder"></a>
 												<div class="card-body">
 													<h3 class="card-title">
-														<a href="#">${projectList.pro_title }</a>
+														<a href="projectdetail.do?pro_num=${p.pro_num }">${p.pro_title }</a>
 													</h3>
-													<p class="card-text">${projectList.pro_detail }</p>
+													<p class="card-text">${p.pro_detail }</p>
 													<span class="donation-time mb-3 d-block">Last
 														donation 1w ago</span>
 													<div class="progress custom-progress-success">
@@ -127,8 +127,8 @@ body {
 															aria-valuemin="0" aria-valuemax="100"></div>
 													</div>
 													<span class="fund-raised d-block">후원된 금액:
-														${projectList.pro_nowmoney }, 목표금액:
-														${projectList.pro_goalmoney }</span>
+														${p.pro_nowmoney }, 목표금액:
+														${p.pro_goalmoney }</span>
 												</div>
 											</div>
 										</c:forEach>
@@ -151,20 +151,20 @@ body {
 										<div class="card fundraise-item">
 											<div class="card-body">
 												<h3 class="card-title">
-													<a href="#">구독한 단체가 없습니다.<br>단체를 구독해볼까요?</a>
+													<a href="org.do">구독한 단체가 없습니다.<br>단체를 구독해볼까요?</a>
 												</h3>
 											</div>
 										</div>
 									</c:when>
 									<c:otherwise>
-										<c:forEach var="orgList" items="${orgList }">
+										<c:forEach var="org" items="${orgList }">
 											<div class="card fundraise-item">
-												<a href="#"><img class="card-img-top"
-													src="${pageContext.request.contextPath}/resources/upload/images/org/${orgList.org_pic}"
+												<a href="orgDetail.do?org_num=${org.org_num }"><img class="card-img-top"
+													src="${pageContext.request.contextPath}/resources/upload/images/org/${org.org_pic}"
 													alt="Image placeholder"></a>
 												<div class="card-body">
 													<h3 class="card-title">
-														<a href="#">${orgList.org_name }</a>
+														<a href="#">${org.org_name }</a>
 													</h3>
 												</div>
 											</div>

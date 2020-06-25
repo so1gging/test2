@@ -56,7 +56,7 @@
   <!--------------START HEADER--------------------- -->
   <div class="block-31" style="position: relative;">
     <div class="owl-carousel loop-block-31 ">
-      <div class="block-30 block-30-sm item" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+      <div class="block-30 block-30-sm item" style="background-image: url('${pageContext.request.contextPath}/resources/images/bg_3.jpg');" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center justify-content-center">
             <div class="col-md-7 text-center">
@@ -118,9 +118,13 @@
 					<c:when test="${!empty list }">
 						<c:forEach items="${list}" var="dto">
 								<div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0">
-									<a href="together_detail.do?tog_no=${dto.tog_no }"><img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/images/together/${dto.tog_image}" style="width: 330px; height: 300px;  " alt="Image placeholder"></a>
+									<div class="post-entry">
+										<a href="together_detail.do?tog_no=${dto.tog_no }" class="img-wrap">
+											<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/images/together/${dto.tog_image}" style="width: 330px; height: 300px;  " alt="Image placeholder">
+					                        <span class="date">${dto.tog_category }</span>											
+										</a>
+				                     </div>
 			                        <div class="card fundraise-item mb-5">
-			                            	${dto.tog_category }
 			                            <div class="card-body">
 			                              <h3 class="card-title"><a href="together_detail.do?tog_no=${dto.tog_no }">${dto.tog_title }</a></h3>
 			                              <span class="donation-time mb-3 d-block">
@@ -138,7 +142,7 @@
       </div>
      
       <c:if test="${!empty user }">
-      <a href="together_writeform.do"><button class="btn btn-primary px-5 py-3" style="float: right;" >작성</button></a>
+      <a href="together_writeform.do"><button class="btn btn-success" style="float: right;" >작성</button></a>
       </c:if>
       <br>
     </div>

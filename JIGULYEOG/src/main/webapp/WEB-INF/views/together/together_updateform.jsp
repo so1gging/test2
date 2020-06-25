@@ -32,6 +32,71 @@
         font-family: 'Poppins','Jeju Gothic', serif;
       }
     </style>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript">
+	
+	function getFormatDate(date){
+    	var year = date.getFullYear();              //yyyy
+   	 	var month = (1 + date.getMonth());          //M
+    	month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+    	var day = date.getDate();                   //d
+    	day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+    	return  year + '-' + month + '-' + day;
+	}
+	
+	$(function(){
+		$("#submitBtn").click(function(){
+			var tog_title = $("#tog_title").val();
+			var tog_dead = $("#tog_dead").val();
+			var tog_category = $("#tog_category").val();
+			var file = $("#file").val();
+			
+			var today = new Date();
+			today = getFormatDate(today);
+			
+			
+			if(tog_title == "" || tog_title == null){
+				alert('프로젝트 제목을 입력해주세요.');
+				return false;
+			}
+			
+			if(file == "" || file == null){
+				alert('대표 이미지를 설정해주세요.');
+				return false;
+			}
+			
+			if(today == tog_dead){
+				alert('마감기한은 오늘 이후여야합니다.');
+				return false;
+			}
+			
+			if(today > tog_dead){
+				alert('마감기한은 오늘 이후여야합니다.');
+				return false;
+			}
+			
+			var ckeditor = CKEDITOR.instances['tog_content']; 
+			if (ckeditor.getData()==""){
+			 	alert('내용을 입력 하세요');
+			 	ckeditor.focus();
+			 	return false;
+			}
+			
+			/*
+			if(tog_category == null){
+				alert('카테고리를 선택해주세요.');
+				return false;
+			}*/
+			
+			
+			$("#submitForm").submit();	
+			
+		});
+		
+		
+	});
+	</script>
+    
   </head>
   <body>
     
@@ -41,7 +106,7 @@
   
   <div class="block-31" style="position: relative;">
     <div class="owl-carousel loop-block-31 ">
-      <div class="block-30 block-30-sm item" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+      <div class="block-30 block-30-sm item" style="background-image: url('background-image: url('${pageContext.request.contextPath}/resources/images/bg_3.jpg');');" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center justify-content-center">
             <div class="col-md-7 text-center">
@@ -70,7 +135,7 @@
                     	<input type="hidden" name="tog_no" value="${dto.tog_no}">
                       <div class="form-group">
                         <label >제목</label>
-                        <input type="text" class="form-control" name="tog_title" value="${dto.tog_title }">
+                        <input type="text" class="form-control" style="width: 300px;" name="tog_title" value="${dto.tog_title }">
                       </div>
                       	<div class="form-group">
                       		<label>현재 이미지 </label>
@@ -83,11 +148,15 @@
 						</div>					  		
                       <div class="form-group">
                         <label >카테고리</label>
-                        <input type="text" class="form-control" name="tog_category" value="${dto.tog_category }">
+                        <select name="tog_category" required >
+                      			<option value="모금">모금</option>
+				                <option value="행사">행사</option>
+				                <option value="봉사">봉사</option>
+							</select>
                       </div>
                       <div class="form-group">
                         <label >기한</label>
-                        <input type="text" class="form-control" name="tog_dead" value="<fmt:formatDate value='${dto.tog_dead}' pattern='yyyy/MM/dd'/>">
+                        <input type="date" class="form-control" name="tog_dead" style="width: 200px;" value="<fmt:formatDate value='${dto.tog_dead}' pattern='yyyy/MM/dd'/>">
                       </div>
                       
                       <div class="form-group">

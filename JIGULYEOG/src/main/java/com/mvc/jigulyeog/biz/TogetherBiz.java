@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mvc.jigulyeog.model.dto.PageMaker;
 import com.mvc.jigulyeog.model.dto.Paging;
 import com.mvc.jigulyeog.model.dto.TogetherDto;
+import com.mvc.jigulyeog.model.dto.UserDto;
 
 
 
@@ -41,6 +42,8 @@ public interface TogetherBiz {
 	List<TogetherDto> selectVolunteerList(Paging paging);
 	List<TogetherDto> selectFundingList(Paging paging);
 	List<TogetherDto> selectShareList(Paging paging);
+
+	UserDto selectWriteUser(String user_id);
 	 
 	
 	
