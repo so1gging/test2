@@ -93,7 +93,7 @@ body {
 										<div class="card fundraise-item">
 											<div class="card-body">
 												<h3 class="card-title">
-													<a href="#">진행한 프로젝트가 없습니다.<br>프로젝트를 진행해보세요.</a>
+													<a href="projectlist.do">진행한 프로젝트가 없습니다.<br>프로젝트를 진행해보세요.</a>
 												</h3>
 											</div>
 										</div>
@@ -110,12 +110,12 @@ body {
 												</c:otherwise>
 											</c:choose>
 											<div class="card fundraise-item">
-												<a href="#"><img class="card-img-top"
+												<a href="projectdetail.do?pro_num=${nowP.pro_num }"><img class="card-img-top"
 													src="${pageContext.request.contextPath}/resources/upload/images/project/${nowP.pro_image}"
 													alt="Image placeholder"></a>
 												<div class="card-body">
 													<h3 class="card-title">
-														<a href="#">${nowP.pro_title }</a>
+														<a href="projectdetail.do?pro_num=${nowP.pro_num }">${nowP.pro_title }</a>
 													</h3>
 													<p class="card-text">${nowP.pro_detail }</p>
 													<span class="donation-time mb-3 d-block">Last
@@ -150,7 +150,7 @@ body {
 										<div class="card fundraise-item">
 											<div class="card-body">
 												<h3 class="card-title">
-													<a href="#">종료된 프로젝트가 없습니다.</a>
+													종료된 프로젝트가 없습니다.
 												</h3>
 											</div>
 										</div>
@@ -167,12 +167,12 @@ body {
 												</c:otherwise>
 											</c:choose>
 											<div class="card fundraise-item">
-												<a href="#"><img class="card-img-top"
+												<a href="projectdetail.do?pro_num=${endP.pro_num }"><img class="card-img-top"
 													src="${pageContext.request.contextPath}/resources/upload/images/project/${endP.pro_image}"
 													alt="Image placeholder"></a>
 												<div class="card-body">
 													<h3 class="card-title">
-														<a href="#">${endP.pro_title }</a>
+														<a href="projectdetail.do?pro_num=${endP.pro_num }">${endP.pro_title }</a>
 													</h3>
 													<p class="card-text">${endP.pro_detail }</p>
 													<span class="donation-time mb-3 d-block">Last

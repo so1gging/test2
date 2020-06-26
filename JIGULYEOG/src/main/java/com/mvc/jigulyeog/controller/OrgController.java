@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,8 +18,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mvc.jigulyeog.biz.MemberBiz;
@@ -82,13 +86,26 @@ public class OrgController {
 	}
 
 	@RequestMapping(value = "/orgDetail.do")
-	public String orgDetail(Model model, @RequestParam(value = "org_num", required = true) Integer org_num) {
+	public String orgDetail(Model model, @RequestParam(value = "org_num", required = true) Integer org_num,
+			HttpSession session) {
 		logger.info("[ OrgController : orgDetail ]");
 		logger.info("[ org_num : " + org_num + " ]");
-
+		
+		//사용자가 단체를 구독했는지 판단
+		UserDto dto = (UserDto)session.getAttribute("user");
+		String user_id = "";
+		boolean subChk = false;
+		
+		//로그인 되있을때만 체크.
+		if(dto != null) {
+			user_id = dto.getUser_id();
+			subChk = ob.subChk(org_num,user_id);
+		}
+		model.addAttribute("subChk",subChk);
+		
 		OrgDto org = ob.selectOne(org_num);
 		model.addAttribute("org", org);
-
+		
 		Date date = org.getOrg_est_date();
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String dateEx = transFormat.format(date);
@@ -97,7 +114,7 @@ public class OrgController {
 		List<ProjectDto> pList = ob.getPList(org_num);
 		model.addAttribute("pList", pList);
 		logger.info("[ pList : " + pList.size() + " ]");
-
+		
 		return "/org/org_detail";
 	}
 
@@ -205,6 +222,82 @@ public class OrgController {
 			}
 		}
 	}
+	
+	@RequestMapping("/subscribe.do")
+	public void subscribe(HttpSession session, @RequestParam(value="org_num") int org_num,
+			HttpServletResponse response,HttpServletRequest request) {
+		response.setContentType("text/html; charset=utf-8");
+		UserDto dto = (UserDto)session.getAttribute("user");
+		String user_id = dto.getUser_id();
+		
+		int res=ob.subscribe(org_num, user_id);
+		if(res>0) {
+			try {
+				jsResponse("구독 성공", "orgDetail.do?org_num="+org_num, response);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else {
+			try {
+				jsResponse("구독 실패", "orgDetail.do?org_num="+org_num, response);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@RequestMapping("/subscribeCancle.do")
+	public void subscribeCancle(HttpSession session, @RequestParam(value="org_num") int org_num,
+			HttpServletResponse response,HttpServletRequest request) {
+		response.setContentType("text/html; charset=utf-8");
+		UserDto dto = (UserDto)session.getAttribute("user");
+		String user_id = dto.getUser_id();
+		
+		int res=ob.subscribeCancle(org_num, user_id);
+		if(res>0) {
+			try {
+				jsResponse("구독취소 성공", "orgDetail.do?org_num="+org_num, response);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else {
+			try {
+				jsResponse("구독취소 실패", "orgDetail.do?org_num="+org_num, response);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	//phoneCheck
+	   @RequestMapping("/updatePhoneCheck.do")
+	   @ResponseBody
+	   public Map updatePhoneCheck(@RequestBody Map param, HttpSession session) {
+		   String user_phone = (String) param.get("user_phone");
+		   logger.info("user_phone:"+user_phone);
+		   UserDto dto = (UserDto)session.getAttribute("user");
+		   String session_phone = dto.getUser_phone();
+		   int res = 0;
+
+		   if(user_phone.equals(session_phone)) {
+			   //session의 전화번호와 입력된 전화번호가 일치하면 0
+			   res=0;
+		   }else {
+			   // 전화번호 중복되면 res : 1, 없으면 0
+			   if (mb.phoneCheck(user_phone) != 0) {
+				   res = 1;
+			   }
+		   }
+		   
+		   Boolean is = (res==0)?true:false;
+		   
+		   Map<String,Boolean> map = new HashMap<String, Boolean>();
+		   
+		   map.put("check", is);
+		   return map;
+	   }
+	
 	
 	private void jsResponse(String msg, String url, HttpServletResponse response) throws IOException {
 		String s = "<script type='text/javascript' charset='utf-8'>" + "alert('" + msg + "');" + "location.href='" + url

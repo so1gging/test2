@@ -43,6 +43,10 @@ public class TogetherBizImpl implements TogetherBiz{
 		// file변수에 담겨있는 버퍼가져오기
 		MultipartFile ogFile = file;
 		String ogFileName = ogFile.getOriginalFilename();
+		/*************솔지 수정 부분***************/
+		 //파일명 중 확장자만 추출                                
+        String originalFileExtension = ogFileName.substring(ogFileName.lastIndexOf("."));
+		
 		logger.info("====== ogFileName : "+ogFileName+" ======");
 		
 		InputStream Istream = null;
@@ -55,7 +59,9 @@ public class TogetherBizImpl implements TogetherBiz{
 			logger.info("====== savePath : "+savePath+" ======" );
 			
 			String uuid = UUID.randomUUID().toString();
-	        String renameFileName = uuid.substring(0,uuid.indexOf("-"));
+	        String renameFileName = uuid.substring(0,uuid.indexOf("-"))+originalFileExtension;
+	        /*******************************/
+	        
 	        logger.info("[ renameFileName : "+renameFileName+" ]");
 	         
 	        File renameFile = new File(savePath);

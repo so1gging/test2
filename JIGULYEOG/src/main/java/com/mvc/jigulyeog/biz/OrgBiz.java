@@ -22,5 +22,8 @@ public interface OrgBiz {
 	List<ProjectDto> getPList(Integer org_num);
 	List<ProjectDto> getNowPList(int org_num);
 	List<ProjectDto> getEndPList(int org_num);
+	int subscribe(int org_num, String user_id);
+	int subscribeCancle(int org_num, String user_id);
+	boolean subChk(Integer org_num, String user_id);
 
 }

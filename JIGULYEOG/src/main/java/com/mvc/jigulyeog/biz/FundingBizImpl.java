@@ -47,6 +47,17 @@ public class FundingBizImpl implements FundingBiz{
 		}	
 		return (is1&&is2)?true:false;
 	}
+
+	@Override
+	public Boolean checkAndUpdateSuccessStatus(int pro_num) {
+		logger.info("[ FundingBiz : checkAndUpdateSuccessStatus ]");
+		Integer res = dao.checkSuccessStatus(pro_num);
+		Boolean res1 = false;
+		if(res!=null) {
+			res1 = dao.updateSuccessStatus(pro_num);
+		}
+		return res1;
+	}
 	
 	
 

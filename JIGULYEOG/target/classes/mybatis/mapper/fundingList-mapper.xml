@@ -26,5 +26,19 @@
 		WHERE PRO_NUM = #{pro_num}
 	</update>
 	
+	<select id="checkSuccessStatus" parameterType="int" resultType="int">
+		<![CDATA[
+		SELECT PRO_NUM
+		FROM PROJECT_TB
+		WHERE ( PRO_GOALMONEY-PRO_NOWMONEY<=0 ) AND PRO_NUM = #{pro_num}
+		]]>
+	</select>
+	
+	<update id="updateSuccessStatus" parameterType="int">
+		UPDATE PROJECT_TB
+		SET PRO_SUCCESS = 'S'
+		WHERE PRO_NUM=#{pro_num}
+	</update>
+	
 	
 </mapper>

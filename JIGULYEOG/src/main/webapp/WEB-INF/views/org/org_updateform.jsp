@@ -92,19 +92,47 @@ body {
 				$('#pw2_check').text('비밀번호가 다릅니다.');
 				$('#pw2_check').css('color', 'red');
 			} else if ($('#user_pw_chk').val() == $('#user_pw').val()) {
-				$('#pw2_check').css('display', 'none');
+				$('#pw2_check').css('color', 'blue');
+				$('#pw2_check').text('비밀번호가 일치합니다.');
 			}
 		});
 
-		//전화번호 입력
+		//전화번호 중복확인
 		$("#user_phone").blur(function() {
 			if ($('#user_phone').val() == '') {
 				$('#phone_check').text('전화번호를 입력하세요.');
 				$('#phone_check').css('color', 'red');
 			} else if ($('#user_phone').val() != '') {
-				$('#phone_check').css('display', 'none');
-			}
-		});
+				var user_phone = $('#user_phone').val();
+				var param = {
+					"user_phone" : user_phone
+				};
+
+				$.ajax({
+					type : 'POST',
+					data : JSON.stringify(param),
+					url : 'updatePhoneCheck.do',
+					dateType : 'json',
+					contentType : "application/json; charset=UTF-8",
+					success : function(data) {
+						if (data.check == true) {
+							//사용할 수 있는 닉네임~!!
+							$('#phone_check').text('사용가능한 전화번호 입니다.');
+							$('#phone_check').css('color', 'blue');
+							$("#usercheck").attr("disabled", false);
+						} else {
+							//중복닉네임~
+							$('#phone_check').text('중복된 전화번호 입니다.');
+							$('#phone_check').css('color', 'red');
+							$("#usercheck").attr("disabled", true);
+						}
+					},
+					error : function() {
+						alert("AJAX 통신에러");
+					}
+				});//ajax///
+			}//else if
+		});//blur
 
 		//submit시에 빈칸확인
 		$("#submit").on("click", function() {
@@ -118,6 +146,11 @@ body {
 				$("#user_pw").focus();
 				return false;
 			}
+			if ($('#user_pw_chk').val() != $('#user_pw').val()) {
+				alert("비밀번호를 일치 시켜주세요.");
+				$("#user_pw_chk").focus();
+				return false;
+			}
 			if ($("#user_name").val() == "") {
 				alert("성명을 입력해주세요.");
 				$("#user_name").focus();
@@ -126,6 +159,11 @@ body {
 			if ($("#user_nick").val() == "") {
 				alert("닉네임을 입력해주세요.");
 				$("#user_nick").focus();
+				return false;
+			}
+			if ($('#phone_check').text() == "중복된 전화번호 입니다.") {
+				alert("중복된 전화번호 입니다.");
+				$("#user_phone").focus();
 				return false;
 			}
 			if ($("#user_phone").val() == "") {
@@ -157,7 +195,7 @@ body {
 				<div class="container">
 					<div class="row align-items-center justify-content-center">
 						<div class="col-md-7 text-center">
-							<h2 class="heading">Join_Org</h2>
+							<h2 class="heading">내정보 수정</h2>
 						</div>
 					</div>
 				</div>
@@ -171,6 +209,7 @@ body {
 				<div class="col-md-6 pr-md-5" style="margin: 0 auto;">
 					<form action="org_updateRes.do" method="POST"
 						enctype="multipart/form-data" id="usercheck">
+						<input type="hidden" name="user_status" id="user_status" value="${user.getUser_status() }">
 						<div class="form-group joinbox">
 							<input type="hidden" class="form-control px-3 py-3 join_input"
 								style="width: 500px;" name="user_id" id="user_id"
@@ -230,7 +269,7 @@ body {
 						</div>
 						<div class="form-group">
 							<input type="button" value="취소" class="btn py-3 px-5 cancelbtn"
-								style="width: 500px;" onclick="location.href='registForm.do'">
+								style="width: 500px;" onclick="location.href='org_myPage.do'">
 						</div>
 					</form>
 				</div>

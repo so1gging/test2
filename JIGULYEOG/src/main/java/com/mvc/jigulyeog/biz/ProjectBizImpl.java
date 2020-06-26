@@ -45,8 +45,11 @@ public class ProjectBizImpl implements ProjectBiz{
 		MultipartFile originalFile = file;
 		String originalFileName = originalFile.getOriginalFilename();
 		logger.info("[ originalFileName : "+originalFileName+" ]");
-		
-	     InputStream inputStream = null;
+		/*************솔지 수정 부분***************/
+		 //파일명 중 확장자만 추출                                
+       String originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+	     
+       InputStream inputStream = null;
 	     OutputStream outputStream = null;
 	     
 	     try {
@@ -58,7 +61,7 @@ public class ProjectBizImpl implements ProjectBiz{
 	         
 	         // 파일 이름 정하기
 	         String uuid = UUID.randomUUID().toString();
-	         String renameFileName = uuid.substring(0,uuid.indexOf("-"));
+	         String renameFileName = uuid.substring(0,uuid.indexOf("-"))+originalFileExtension;
 	         logger.info("[ renameFileName : "+renameFileName+" ]");
 	         
 	         File renameFile = new File(savePath); // 해당 savePath를 storage로 해주기 위해

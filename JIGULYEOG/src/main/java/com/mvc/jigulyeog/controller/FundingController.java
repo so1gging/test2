@@ -80,6 +80,15 @@ public class FundingController {
 			logger.info("[ overlap donate ]");
 			is = fb.fundingProcessOverlap(sponser);
 		}
+		
+		if(is==true) {
+			Boolean check = fb.checkAndUpdateSuccessStatus(sponser.getPro_num());
+			if(check) {
+				logger.info("[ project Success! ]");
+			}else {
+				logger.info("[ project Yet ..! ]");				
+			}
+		}
 
 		map.put("check", is);
 		return map;

@@ -131,58 +131,59 @@
                   <!-- END comment-list -->
                   
                   <div class="comment-form-wrap pt-5">
-                    <h3 >함께해요 작성하기</h3>
+                    <h3>함께해요 작성하기</h3>
                     <form action="together_write.do" class="p-5 bg-light" method="post" enctype="multipart/form-data" id="submitForm">
                     	<input type="hidden" value="${user.user_id }"name="user_id">
-                      <div class="form-group">
-                        <label >제목</label>
-                        <input type="text" style="width:300px;" class="form-control" id="tog_title" name="tog_title" >
-                      </div>
-                      <div class="form-group">
-	                       <label >카테고리 &nbsp;</label> 
-	                       
-	                      <!--  <input type="text" class="form-control" id="tog_category" name="tog_category" style="width:100px">-->
-                      		<select name="tog_category" required style="width:80px; text-align: center; " >
-                      			<option value="모금">모금</option>
-				                <option value="나눔">나눔</option>
-				                <option value="봉사">봉사</option>
-							</select>
-                      		
-                      </div>
-					  <div class="form-group">
-					  		<label>이미지</label>
-					  		<input type="file" class="form-control" id="file" name="file" style="width:250px">
-					  </div>                      
-                      <div class="form-group">
-                        <label >기한  </label>
-                        <!-- 솔지수정부분 -->
-                        <input type="date" class="form-control" id="tog_dead" name="tog_dead" style="width: 200px; display: inline-block;">
-                        <!-- <input type="text" class="form-control" id="tog_dead" name="tog_dead" style="width: 200px; display: inline-block;"> -->
-                      </div>
-                      
-                      <div class="form-group">
-                        <label >내용</label>
-                      	<textarea class="form-control" id="tog_content" name="tog_content"></textarea>
-			              <script type="text/javascript">
-			                  CKEDITOR.replace('tog_content'
-			                                  , {
-			                	  height: 500,
-			                	  filebrowserUploadUrl:'togetherDetailFile.do'
-			                                  });
-			              </script>
-                      </div>
-                      <div class="form-group">
-                        <label >한마디</label>
-                        <textarea name="tog_ps" id="tog_ps" cols="5" rows="5" class="form-control"></textarea>
-                      </div>
-			              
-                      <div class="form-group" style="float: right;">
-                        <a href="together.do"><input type="button"  value="취소" class="btn py-3 px-5  btn-primary"></a>
-                       <!--   <input type="button" value="작성" id="submitBtn" class="btn py-3 px-5  btn-primary">-->
-                        <button id="submitBtn" class="btn py-3 px-5  btn-primary">작성</button>
-                      </div>
-
+                      <table class="table">
+                  		<tr>
+                  			<th style="width:200px;">제목</th>
+                  			<td><input type="text" class="form-control" name="tog_title" id="tog_title"></td>
+                  		</tr>
+                  		<tr>
+                  			<th style="width:200px">카테고리</th>
+                  			<td>
+	                  			<select name="tog_category" required style="width:100px;" >
+	                      			<option value="모금">모금</option>
+					                <option value="나눔">나눔</option>
+					                <option value="봉사">봉사</option>
+								</select>
+							</td>
+                  		</tr>
+                  		<tr>
+                  			<th style="width:200px;">이미지</th>
+                  			<td><input type="file" name="file" id="file" class="form-control" style="width: 250px; display: inline-block;"></td>
+                  		</tr>
+                  		<tr>
+                  			<th style="width:200px;">기한</th>
+                  			<td><input type="date" class="form-control" id="tog_dead" name="tog_dead" style="width: 200px; display: inline-block;"></td>
+                  		</tr>
+                  		<tr>
+                  			<th style="width:200px;">내용</th>
+                  			<td>
+                  				<textarea class="form-control" id="tog_content" name="tog_content"></textarea>
+					            <script type="text/javascript">
+					                  CKEDITOR.replace('tog_content'
+					                                  , {
+					                	  height: 500,
+					                	  filebrowserUploadUrl:'togetherDetailFile.do'
+					                                  });
+					            </script>
+			             	</td>
+                  		</tr>
+                  		<tr>
+                  			<th style="width:200px;">한마디</th>
+                  			<td><textarea name="tog_ps" id="tog_ps" cols="5" rows="5" class="form-control"></textarea></td>
+                  		</tr>
+                  		<tr>
+                  			<td colspan="2" style="text-align: right;">
+                  				<a href="together.do"><input type="button"  value="취소" class="btn py-3 px-5  btn-primary"></a>
+                        		<button id="submitBtn" class="btn py-3 px-5  btn-primary">작성</button>
+                  			</td>
+                  		</tr>
+                  	</table>
+                    
                     </form>
+                  	
                   </div>
                   
               </div> <!-- .col-md-8 -->

@@ -95,4 +95,34 @@ public class FundingDaoImpl implements FundingDao{
 		return (res>0)?true:false;
 	}
 
+	@Override
+	public Integer checkSuccessStatus(int pro_num) {
+		logger.info("[ FundingDao : checkSuccessStatus ]");
+		Integer res = 0;	
+		try {
+			res = sqlSession.selectOne(NAMESPACE+"checkSuccessStatus",pro_num);
+		
+		} catch (Exception e) {
+			logger.info("[ error : checkSuccessStatus ]");
+			e.getStackTrace();
+		}
+		
+		return res;
+	}
+
+	@Override
+	public Boolean updateSuccessStatus(int pro_num) {
+		logger.info("[ FundingDao : updateSuccessStatus ]");
+		int res = 0;	
+		try {
+			res = sqlSession.update(NAMESPACE+"updateSuccessStatus",pro_num);
+		
+		} catch (Exception e) {
+			logger.info("[ error : updateSuccessStatus ]");
+			e.getStackTrace();
+		}
+		
+		return (res>0)?true:false;
+	}
+
 }

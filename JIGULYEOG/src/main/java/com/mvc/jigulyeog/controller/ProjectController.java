@@ -181,7 +181,7 @@ public class ProjectController {
 						// upload path : /resources/upload/images/project/pro_detail
 						String uploadPath = req.getSession().getServletContext().getRealPath("/resources/upload/images/project/pro_detail"); // 업로드 경로
 						logger.info("[uploadPath :"+uploadPath+"]");
-						
+									
 						File uploadFile = new File(uploadPath);
 						
 						// 경로 존재 여부

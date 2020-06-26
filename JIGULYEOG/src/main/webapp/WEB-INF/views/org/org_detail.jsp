@@ -82,41 +82,43 @@ body {
 	</div>
 	<!----------------- END header ----------------->
 
-	<script type="text/javascript">
-		function gudokOn() {
-			$.ajax({
-				type : "POST",
-				url : "gudokOn.do?user_id=${user.user_id}",
-				data : {user_id : ${user.user_id}},
-				dataType : JSON,
-				success : function(){
-					alert("성공");
-				},
-				error : function(){
-					alert("에러");
-				}
-			});
-		};
-	</script>
 
 	<div class="site-section">
 		<div class="container">
 			<div class="row block-9" style="text-align: center;">
 				<div class="col-md-5 pr-md-5" style="margin: 0 auto;">
 					<div class="card fundraise-item">
-						<img class="card-img-top"
-							src="${pageContext.request.contextPath}/resources/images/personal_img/org_ex_logo.jpg"
-							alt="Image placeholder" height="300px">
+						<c:choose>
+							<c:when test="${org.org_pic eq null }">
+								<img class="card-img-top"
+									src="${pageContext.request.contextPath}/resources/images/personal_img/no-image-icon.PNG"
+									alt="Image placeholder" height="300px">
+							</c:when>
+							<c:otherwise>
+								<img class="card-img-top"
+									src="${pageContext.request.contextPath}/resources/upload/images/user/${org.org_pic}"
+									alt="Image placeholder" height="300px">
+							</c:otherwise>
+						</c:choose>
 						<div class="card-body">
-							<h3 class="card-title">
-								<a href="#">${org.org_name }</a>
-							</h3>
-							<p class="card-text">환경단체 소개</p>
-							<input type="button" value="구독하기"
-								class="btn btn-success py-2 px-5" id="gudokOn"
-								onclick="gudokOn()" style="width: 300px;"> <input
-								type="button" value="구독취소" class="btn btn-success py-2 px-5"
-								id="gudokOff" onclick="gudokOff()" style="width: 300px;">
+							<h3 class="card-title">${org.org_name }</h3>
+							<c:choose>
+								<c:when test="${subChk eq false }">
+									<form action="subscribe.do" method="post" id="subscribe">
+										<input type="hidden" name="org_num" value="${org.org_num }">
+										<input type="submit" value="구독하기"
+											class="btn btn-success py-2 px-5">
+									</form>
+								</c:when>
+								<c:otherwise>
+									<form action="subscribeCancle.do" method="post"
+										id="subscribeCancle">
+										<input type="hidden" name="org_num" value="${org.org_num }">
+										<input type="submit" value="구독취소"
+											class="btn btn-success py-2 px-5">
+									</form>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 				</div>
@@ -221,24 +223,23 @@ body {
 								<c:choose>
 									<c:when test="${empty pList }">
 										<div class="card fundraise-item">
-												<div class="card-body">
-													<h3 class="card-title">
-														진행한 프로젝트가 없습니다.
-													</h3>
-												</div>
+											<div class="card-body">
+												<h3 class="card-title">진행한 프로젝트가 없습니다.</h3>
 											</div>
+										</div>
 									</c:when>
 									<c:otherwise>
 										<c:forEach var="p" items="${pList }">
 											<fmt:parseNumber var="percent" integerOnly="true"
 												value="${p.pro_nowmoney*100/p.pro_goalmoney }"></fmt:parseNumber>
 											<div class="card fundraise-item">
-												<a href="#"><img class="card-img-top"
+												<a href="projectdetail.do?pro_num=${p.pro_num }"><img
+													class="card-img-top"
 													src="${pageContext.request.contextPath}/resources/upload/images/project/${p.pro_image}"
 													alt="Image placeholder"></a>
 												<div class="card-body">
 													<h3 class="card-title">
-														<a href="#">${p.pro_title }</a>
+														<a href="projectdetail.do?pro_num=${p.pro_num }">${p.pro_title }</a>
 													</h3>
 													<p class="card-text">${p.pro_detail }</p>
 													<span class="donation-time mb-3 d-block">Last

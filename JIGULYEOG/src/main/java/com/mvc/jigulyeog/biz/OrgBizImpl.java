@@ -94,4 +94,22 @@ public class OrgBizImpl implements OrgBiz{
 		return endPList;
 	}
 
+	@Override
+	public int subscribe(int org_num, String user_id) {
+		
+		return dao.subscribe(org_num,user_id);
+	}
+
+	@Override
+	public int subscribeCancle(int org_num, String user_id) {
+		
+		return dao.subscribeCancle(org_num,user_id);
+	}
+
+	@Override
+	public boolean subChk(Integer org_num, String user_id) {
+
+		return dao.subChk(org_num,user_id);
+	}
+
 }
