@@ -39,6 +39,8 @@ public class MemberBizImpl implements MemberBiz {
 		// [1] file에 담겨있는 파일 가져오기
 		MultipartFile originalFile = file;
 		String originalFileName = originalFile.getOriginalFilename();
+		
+		
 		logger.info("[ originalFileName : "+originalFileName+" ]");
 		
 		InputStream inputStream = null;

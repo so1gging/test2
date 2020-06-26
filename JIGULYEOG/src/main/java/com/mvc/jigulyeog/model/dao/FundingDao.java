@@ -8,5 +8,7 @@ public interface FundingDao {
 	Boolean insertFundingList(FundingListDto sponser);
 	Boolean updatePrjectNowMoney(FundingListDto sponser);
 	Boolean updateFundingList(FundingListDto sponser);
+	Integer checkSuccessStatus(int pro_num);
+	Boolean updateSuccessStatus(int pro_num);
 
 }

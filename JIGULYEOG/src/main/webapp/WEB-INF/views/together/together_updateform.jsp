@@ -60,11 +60,7 @@
 				return false;
 			}
 			
-			if(file == "" || file == null){
-				alert('대표 이미지를 설정해주세요.');
-				return false;
-			}
-			
+					
 			if(today == tog_dead){
 				alert('마감기한은 오늘 이후여야합니다.');
 				return false;
@@ -133,53 +129,63 @@
                     <h3 >함께해요 수정하기</h3>
                     <form action="together_update.do" class="p-5 bg-light" method="post" enctype="multipart/form-data"`>
                     	<input type="hidden" name="tog_no" value="${dto.tog_no}">
-                      <div class="form-group">
-                        <label >제목</label>
-                        <input type="text" class="form-control" style="width: 300px;" name="tog_title" value="${dto.tog_title }">
-                      </div>
-                      	<div class="form-group">
-                      		<label>현재 이미지 </label>
-                      		<input type="hidden" name="tog_image" value="${dto.tog_image}"/>
-	          				<img src="${pageContext.request.contextPath}/resources/upload/images/together/${dto.tog_image}" style="width: 50px; height: 50px;" alt="Image placeholder">
-                      	</div>
-                      	<div class="form-group">
-                      		<label>이미지</label>
-					  		<input type="file" class="form-control" id="file" name="file">
-						</div>					  		
-                      <div class="form-group">
-                        <label >카테고리</label>
-                        <select name="tog_category" required >
-                      			<option value="모금">모금</option>
-				                <option value="행사">행사</option>
-				                <option value="봉사">봉사</option>
-							</select>
-                      </div>
-                      <div class="form-group">
-                        <label >기한</label>
-                        <input type="date" class="form-control" name="tog_dead" style="width: 200px;" value="<fmt:formatDate value='${dto.tog_dead}' pattern='yyyy/MM/dd'/>">
-                      </div>
-                      
-                      <div class="form-group">
-                        <label >내용</label>
-                        <textarea name="tog_content" id="tog_content" cols="30" rows="10" class="form-control">${dto.tog_content }</textarea>
-						<script type="text/javascript">
-			                  CKEDITOR.replace('tog_content'
-			                                  , {
-			                	  height: 500,
-			                	  filebrowserUploadUrl:'togetherDetailFile.do'
-			                                  });
-			              </script>                        
-                      </div>
-                      <div class="form-group">
-                        <label >한마디</label>
-                        <textarea name="tog_ps" id="tog_ps" cols="5" rows="5" class="form-control">${dto.tog_ps }</textarea>
-                      </div>
-                      <div class="form-group" style="float: right;">
-                        <a href="together.do"><input type="button" value="취소" class="btn py-3 px-5  btn-primary"></a>
-                        <input type="submit" value="완료" class="btn py-3 px-5  btn-primary">
-                      </div>
+                      <table class="table">
+                  		<tr>
+                  			<th style="width:200px;">제목</th>
+                  			<td><input type="text" class="form-control" name="tog_title" id="tog_title" value="${dto.tog_title }"></td>
+                  		</tr>
+                  		<tr>
+                  			<th style="width:200px">카테고리</th>
+                  			<td>
+	                  			<select name="tog_category" required style="width:100px;" >
+	                      			<option value="모금">모금</option>
+					                <option value="나눔">나눔</option>
+					                <option value="봉사">봉사</option>
+								</select>
+							</td>
+                  		</tr>
+                  		<tr>
+                  			<th style="width:200px;">현재 이미지</th>
+                  			<td>
+                  				<input type="hidden" name="tog_image" value="${dto.tog_image}"/>
+                  				<img src="${pageContext.request.contextPath}/resources/upload/images/together/${dto.tog_image}" style="width: 50px; height: 50px;" alt="Image placeholder">
+                  			</td>
+                  		</tr>
+                  		<tr>
+                  			<th style="width:200px;">이미지</th>
+                  			<td><input type="file" name="file" id="file" class="form-control" style="width: 250px; display: inline-block;"></td>
+                  		</tr>
+                  		<tr>
+                  			<th style="width:200px;">기한</th>
+                  			<td><input type="date" class="form-control" id="tog_dead" name="tog_dead" style="width: 200px; display: inline-block;" value="<fmt:formatDate value='${dto.tog_dead}' pattern='yyyy/MM/dd'/>"></td>
+                  		</tr>
+                  		<tr>
+                  			<th style="width:200px;">내용</th>
+                  			<td>
+                  				<textarea class="form-control" id="tog_content" name="tog_content">${dto.tog_content }</textarea>
+					            <script type="text/javascript">
+					                  CKEDITOR.replace('tog_content'
+					                                  , {
+					                	  height: 500,
+					                	  filebrowserUploadUrl:'togetherDetailFile.do'
+					                                  });
+					            </script>
+			             	</td>
+                  		</tr>
+                  		<tr>
+                  			<th style="width:200px;">한마디</th>
+                  			<td><textarea name="tog_ps" id="tog_ps" cols="5" rows="5" class="form-control">${dto.tog_ps }</textarea></td>
+                  		</tr>
+                  		<tr>
+                  			<td colspan="2" style="text-align: right;">
+                  				<a href="together_detail.do?tog_no=${dto.tog_no }"><input type="button"  value="취소" class="btn py-3 px-5  btn-primary"></a>
+                        		<button id="submitBtn" class="btn py-3 px-5  btn-primary">작성</button>
+                  			</td>
+                  		</tr>
+                  	</table>
 
                     </form>
+                    
                   </div>
                   
               </div> <!-- .col-md-8 -->

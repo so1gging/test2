@@ -26,4 +26,10 @@ public interface OrgDao {
 
 	List<ProjectDto> getEndPList(int org_num);
 
+	int subscribe(int org_num, String user_id);
+
+	int subscribeCancle(int org_num, String user_id);
+
+	boolean subChk(Integer org_num, String user_id);
+
 }

@@ -127,4 +127,45 @@ public class OrgDaoImpl implements OrgDao{
 		return endPList;
 	}
 
+	@Override
+	public int subscribe(int org_num, String user_id) {
+		int res = 0;
+		Map<Object, Object> param = new HashMap<Object,Object>();
+		param.put("org_num", org_num);
+		param.put("user_id", user_id);
+		try {
+			res = sqlSession.insert(NAMESPACE+"subscribe", param);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public int subscribeCancle(int org_num, String user_id) {
+		int res = 0;
+		Map<Object, Object> param = new HashMap<Object,Object>();
+		param.put("org_num", org_num);
+		param.put("user_id", user_id);
+		try {
+			res = sqlSession.delete(NAMESPACE+"subscribeCancle", param);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public boolean subChk(Integer org_num, String user_id) {
+		int res = 0;
+		Map<Object, Object> param = new HashMap<Object,Object>();
+		param.put("org_num", org_num);
+		param.put("user_id", user_id);
+		try {
+			res = sqlSession.selectOne(NAMESPACE+"subChk", param);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return (res==1)?true:false;
+	}
 }

@@ -60,5 +60,22 @@
 		WHERE ORG_NUM=#{org_num} AND PRO_DUE_DATE <![CDATA[<]]> SYSDATE
 	</select>
 	
+	<insert id="subscribe" parameterType="java.util.HashMap">
+		INSERT INTO SUBSCRIBE VALUES
+		(#{org_num},#{user_id})
+	</insert>
+	
+	<delete id="subscribeCancle" parameterType="java.util.HashMap">
+		DELETE
+		FROM SUBSCRIBE
+		WHERE
+		ORG_NUM = #{org_num} AND USER_ID = #{user_id}
+	</delete>
+	
+	<select id="subChk"  parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*)
+		FROM (SELECT * FROM SUBSCRIBE
+				WHERE ORG_NUM=#{org_num} AND USER_ID=#{user_id})
+	</select>
 	
 </mapper>
